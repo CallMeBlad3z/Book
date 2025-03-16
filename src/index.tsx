@@ -29,12 +29,18 @@ const App = () => {
     if (!ref.current) {
       return;
       }
-    };
+
+    const result = await ref.current.transform(input, {
+      loader: "jsx",
+      target: "es2015",
+    });
+  };
 
 
   const onClick = () => {
     console.log(input);
   };
+  
   return <div>
     <textarea value={input} onChange={(e) => setInput(e.target.value)}></textarea>
     <div>
