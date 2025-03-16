@@ -13,6 +13,13 @@ export const unpkgPathPlugin = () => {
           return { path: 'https://unpkg.com/tiny-test-pkg', namespace: 'a' };
         }
 
+        if (args.path.includes('./') || args.path.includes('../')) {
+          return {
+            namespace: 'a',
+            path: new URL(args.path, 'https://unpkg.com' + args.importer + '/').href,
+          };
+        }
+
         return {
           namespace: 'a',
           https: `https://unpkg.com/${args.path}`,
@@ -26,7 +33,7 @@ export const unpkgPathPlugin = () => {
           return {
             loader: 'jsx',
             contents: `
-              const message = require('medium-test-pkg');
+              const message = require('nested-test-pkg');
               console.log(message);
             `,
           };
