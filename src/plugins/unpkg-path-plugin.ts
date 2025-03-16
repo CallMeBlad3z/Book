@@ -16,13 +16,13 @@ export const unpkgPathPlugin = () => {
         if (args.path.includes('./') || args.path.includes('../')) {
           return {
             namespace: 'a',
-            path: new URL(args.path, 'https://unpkg.com' + args.importer + '/').href,
+            path: new URL(args.path, 'https://unpkg.com' + args.resolveDir + '/').href,
           };
         }
 
         return {
           namespace: 'a',
-          https: `https://unpkg.com/${args.path}`,
+          path: `https://unpkg.com/${args.path}`,
         };
     });
  
@@ -33,8 +33,8 @@ export const unpkgPathPlugin = () => {
           return {
             loader: 'jsx',
             contents: `
-              const message = require('nested-test-pkg');
-              console.log(message);
+              import React, { useState } from 'react';
+              console.log(React, useState);
             `,
           };
         }
