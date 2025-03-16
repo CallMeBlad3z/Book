@@ -17,7 +17,7 @@ const App = () => {
       worker: true,
       wasmURL: "/esbuild.wasm",
     });
-    return service;
+    return ref.current;
   };
 
   useEffect(() => {
