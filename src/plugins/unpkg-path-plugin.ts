@@ -12,6 +12,11 @@ export const unpkgPathPlugin = () => {
         } else if (args.path === 'tiny-test-pkg') {
           return { path: 'https://unpkg.com/tiny-test-pkg', namespace: 'a' };
         }
+
+        return {
+          namespace: 'a',
+          https: `https://unpkg.com/${args.path}`,
+        };
     });
  
       build.onLoad({ filter: /.*/ }, async (args: any) => {
