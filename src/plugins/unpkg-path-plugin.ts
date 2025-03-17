@@ -43,10 +43,7 @@ export const unpkgPathPlugin = () => {
         if (args.path === 'index.js') {
           return {
             loader: 'jsx',
-            contents: `
-              import React, { useState } from 'react-select';
-              console.log(React, useState);
-            `,
+            contents: inputCode,
           };
         }
         
