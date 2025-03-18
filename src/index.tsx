@@ -13,20 +13,16 @@ const App = () => {
   const ref = useRef<any>();
   const iframe = useRef<any>();
   const [input, setInput] = useState("");
-  const [code, setCode] = useState("");
 
   const startService = async () => {
     ref.current = await esbuild.startService({
       worker: true,
       wasmURL: "https://unpkg.com/esbuild-wasm@0.8.27/esbuild.wasm",
     });
-    return ref.current;
   };
 
   useEffect(() => {
-    startService().then((service) => {
-      console.log(service);
-    });
+    startService();
   }, []);
 
   const onClick = async () => {
@@ -40,17 +36,14 @@ const App = () => {
       entryPoints: ['index.js'],
       bundle: true,
       write: false,
-      plugins: [
-        unpkgPathPlugin(),
-        fetchPlugin(input),
-      ],
+      plugins: [unpkgPathPlugin(), fetchPlugin(input)],
       define: {
         'process.env.NODE_ENV': '"production"',
         global: 'window',
       },
     });
 
-    //setCode(result.outputFiles[0].text);
+    // setCode(result.outputFiles[0].text);
     iframe.current.contentWindow.postMessage(result.outputFiles[0].text, '*');
   };
 
@@ -77,20 +70,22 @@ const App = () => {
   console.log(html);
   
   return (
-  <div>
-    <CodeEditor />
-    <textarea 
-      value={input} 
-      onChange={(e) => setInput(e.target.value)}
-    ></textarea>
     <div>
-      <button onClick={onClick}>Submit</button>
+      <CodeEditor initialValue="const a = 1;" />
+      <textarea
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      ></textarea>
+      <div>
+        <button onClick={onClick}>Submit</button>
+      </div>
+      <iframe
+        title="code preview"
+        ref={iframe}
+        sandbox="allow-scripts"
+        srcDoc={html}
+      />
     </div>
-    <iframe ref={iframe} title="preview"
-      sandbox="allow-scripts"
-      srcDoc={html}
-    />
-  </div>
   );
 };
 
