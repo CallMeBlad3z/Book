@@ -3,6 +3,7 @@
   padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
+  flex-grow: 1;
 }
 
 .preview-wrapper iframe {
