@@ -4,4 +4,8 @@
     font-weight: unset;
 }
 
+.w-md-editor ul {
+    line-height: 1;
+}
+
 
