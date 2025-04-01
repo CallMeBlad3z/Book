@@ -12,9 +12,7 @@ export interface MoveCellAction {
 
 export interface DeleteCellAction {
   type: ActionType.DELETE_CELL;
-  payload: {
-    id: string;
-  };
+  payload: string;
 }
 
 export interface InsertCellBeforeAction {
